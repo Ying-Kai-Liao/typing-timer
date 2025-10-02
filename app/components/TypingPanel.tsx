@@ -27,10 +27,8 @@ export function TypingPanel({
 }: TypingPanelProps) {
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLTextAreaElement>) => {
-      const isSpace =
-        event.key === ' ' || event.key === 'Space' || event.key === 'Spacebar' || event.code === 'Space';
       const isEnter = event.key === 'Enter' || event.code === 'Enter';
-      if ((isSpace || isEnter) && !event.shiftKey) {
+      if (isEnter && !event.shiftKey) {
         event.preventDefault();
         onWhitespaceTrigger();
       }
