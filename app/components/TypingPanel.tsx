@@ -46,17 +46,17 @@ export function TypingPanel({
       <header className="mb-6 space-y-2">
         <h2 className="text-2xl font-semibold text-slate-600">Typing Panel</h2>
         <p className="text-sm text-slate-500">
-          Press space or enter to {isTiming ? 'stop' : 'start'} the timer. {modeDescription[mode]}
+          Press Enter to {isTiming ? 'stop' : 'start'} the timer. {modeDescription[mode]}
         </p>
         {isTiming ? (
           <p className="text-sm text-slate-500">
-            Timing in progress… press space or enter to stop.
+            Timing in progress… press Enter to stop.
           </p>
         ) : (
           <p className="text-sm text-slate-500">
             Focus the input and{' '}
             <span className="rounded-full bg-indigo-500/10 px-2 py-1 font-semibold text-indigo-600">
-              press space or enter to begin timing
+              press Enter to begin timing
             </span>
             .
           </p>
@@ -83,7 +83,7 @@ export function TypingPanel({
           <p className="mt-1 text-4xl font-semibold tabular-nums text-indigo-500">{timeLabel}s</p>
         </div>
         <div className="text-xs uppercase tracking-[0.2em] text-slate-400">
-          Press whitespace once to start, again to stop.
+          Press Enter once to start, again to stop.
         </div>
       </div>
     </section>

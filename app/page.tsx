@@ -5,6 +5,7 @@ import ModeSwitch from './components/ModeSwitch';
 import ResultsLog from './components/ResultsLog';
 import TypingPanel from './components/TypingPanel';
 import type { ExperimentRecord, Mode } from './components/types';
+import { buildCsvBlob } from './utils/csv';
 
 export default function Home() {
   const [mode, setMode] = useState<Mode>('two-hands');
@@ -90,6 +91,34 @@ export default function Home() {
     setRecords((prev) => prev.filter((record) => record.id !== id));
   }, []);
 
+  const handleExportCsv = useCallback(() => {
+    if (records.length === 0) {
+      return;
+    }
+
+    const csvRecords = [...records]
+      .reverse()
+      .map((record) => ({
+        id: record.id,
+        mode: record.mode,
+        typedText: record.typedText,
+        elapsedMs: record.elapsedMs,
+        elapsedSeconds: (record.elapsedMs / 1000).toFixed(3),
+        timestampIso: new Date(record.timestamp).toISOString(),
+      }));
+
+    const blob = buildCsvBlob(csvRecords);
+    const url = URL.createObjectURL(blob);
+    const timestamp = new Date().toISOString().replace(/[:]/g, '-');
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `typing-timer-results-${timestamp}.csv`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+  }, [records]);
+
   useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
       if (!event.metaKey || !event.shiftKey || event.repeat || isTiming) {
@@ -131,7 +160,7 @@ export default function Home() {
                 Experiment — One Hand vs Two Hand Typing
               </h1>
               <p className="text-sm leading-relaxed text-slate-500">
-                Measure how long it takes to type using one hand versus two hands.<br />Focus the typing input, press space or enter to start, type, then press space or enter again to stop.
+                Measure how long it takes to type using one hand versus two hands.<br />Focus the typing input, press Enter to start, type, then press Enter again to stop.
               </p>
             </div>
             <div className="rounded-full bg-[#e0e5ec] px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 shadow-[inset_4px_4px_8px_#c8cdd8,inset_-4px_-4px_8px_#f5f7fb]">
@@ -165,6 +194,7 @@ export default function Home() {
               records={records}
               onClearRecords={handleClearRecords}
               onDeleteRecord={handleDeleteRecord}
+              onExportCsv={handleExportCsv}
             />
           </div>
         </div>

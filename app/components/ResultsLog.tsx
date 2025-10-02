@@ -8,6 +8,7 @@ interface ResultsLogProps {
   records: ExperimentRecord[];
   onClearRecords: () => void;
   onDeleteRecord: (id: string) => void;
+  onExportCsv: () => void;
 }
 
 interface AggregatedEntry {
@@ -92,7 +93,13 @@ function TimePill({
   );
 }
 
-export default function ResultsLog({ mode, records, onClearRecords, onDeleteRecord }: ResultsLogProps) {
+export default function ResultsLog({
+  mode,
+  records,
+  onClearRecords,
+  onDeleteRecord,
+  onExportCsv,
+}: ResultsLogProps) {
   const hasRecords = records.length > 0;
   const rows = useMemo(() => aggregateRecords(records), [records]);
 
@@ -100,23 +107,37 @@ export default function ResultsLog({ mode, records, onClearRecords, onDeleteReco
     <section className={`rounded-3xl bg-[#e0e5ec] p-6 ${neuromorphicShadow}`}>
       <header className="mb-4 flex items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-semibold text-slate-600">Results</h2>
+          <h2 className="text-lg font-semibold text-slate-600">Typing Timer</h2>
           <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-            quick comparison
+            Aligned by typed word for quick comparison
           </p>
         </div>
-        <button
-          type="button"
-          onClick={onClearRecords}
-          disabled={!hasRecords}
-          className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition-colors ${
-            hasRecords
-              ? 'bg-[#e0e5ec] text-slate-500 shadow-[inset_3px_3px_6px_#c8cdd8,inset_-3px_-3px_6px_#f5f7fb] hover:text-rose-500'
-              : 'cursor-not-allowed bg-[#e0e5ec] text-slate-300 shadow-[inset_3px_3px_6px_#c8cdd8,inset_-3px_-3px_6px_#f5f7fb]'
-          } focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#e0e5ec]`}
-        >
-          Clear
-        </button>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={onExportCsv}
+            disabled={!hasRecords}
+            className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition-colors ${
+              hasRecords
+                ? 'bg-[#e0e5ec] text-slate-500 shadow-[inset_3px_3px_6px_#c8cdd8,inset_-3px_-3px_6px_#f5f7fb] hover:text-indigo-500'
+                : 'cursor-not-allowed bg-[#e0e5ec] text-slate-300 shadow-[inset_3px_3px_6px_#c8cdd8,inset_-3px_-3px_6px_#f5f7fb]'
+            } focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#e0e5ec]`}
+          >
+            Export
+          </button>
+          <button
+            type="button"
+            onClick={onClearRecords}
+            disabled={!hasRecords}
+            className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition-colors ${
+              hasRecords
+                ? 'bg-[#e0e5ec] text-slate-500 shadow-[inset_3px_3px_6px_#c8cdd8,inset_-3px_-3px_6px_#f5f7fb] hover:text-rose-500'
+                : 'cursor-not-allowed bg-[#e0e5ec] text-slate-300 shadow-[inset_3px_3px_6px_#c8cdd8,inset_-3px_-3px_6px_#f5f7fb]'
+            } focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#e0e5ec]`}
+          >
+            Clear
+          </button>
+        </div>
       </header>
 
       {!hasRecords ? (
