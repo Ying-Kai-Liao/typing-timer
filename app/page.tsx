@@ -126,12 +126,12 @@ export default function Home() {
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
         <header className="rounded-3xl bg-[#e0e5ec] p-8 shadow-[8px_8px_16px_#c8cdd8,-8px_-8px_16px_#f5f7fb]">
           <div className="flex flex-wrap items-start justify-between gap-6">
-            <div className="max-w-xl space-y-4">
+            <div className="max-w-2xl space-y-4">
               <h1 className="text-3xl font-semibold tracking-tight text-slate-600">
-                Typing Timer Experiment
+                Experiment — One Hand vs Two Hand Typing
               </h1>
               <p className="text-sm leading-relaxed text-slate-500">
-                Measure how long it takes to type using one hand versus two hands. Focus the typing input, press space or enter to start, type, then press space or enter again to stop.
+                Measure how long it takes to type using one hand versus two hands.<br />Focus the typing input, press space or enter to start, type, then press space or enter again to stop.
               </p>
             </div>
             <div className="rounded-full bg-[#e0e5ec] px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 shadow-[inset_4px_4px_8px_#c8cdd8,inset_-4px_-4px_8px_#f5f7fb]">

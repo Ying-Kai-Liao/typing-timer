@@ -100,9 +100,9 @@ export default function ResultsLog({ mode, records, onClearRecords, onDeleteReco
     <section className={`rounded-3xl bg-[#e0e5ec] p-6 ${neuromorphicShadow}`}>
       <header className="mb-4 flex items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-semibold text-slate-600">Results Log</h2>
+          <h2 className="text-lg font-semibold text-slate-600">Results</h2>
           <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-            Aligned by typed word for quick comparison
+            quick comparison
           </p>
         </div>
         <button
